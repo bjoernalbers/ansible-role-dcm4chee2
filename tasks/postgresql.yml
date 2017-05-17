@@ -1,0 +1,34 @@
+---
+# http://www.dcm4che.org/jira/browse/DCMEE-2048
+- name: patch postgresql script
+  patch:
+    src: patch.create.psql
+    dest: "{{ dcm4chee2_home }}/sql/create.psql"
+
+- name: create postgresql database
+  postgresql_db:
+    name: "{{ dcm4chee2_postgresql_database }}"
+    state: present
+  become: yes
+  become_user: "{{ dcm4chee2_postgresql_admin }}"
+  register: create_postgresql_database
+
+- name: initialize postgresql database
+  shell: psql "{{ dcm4chee2_postgresql_database }}" < create.psql
+  args:
+    chdir: "{{ dcm4chee2_home }}/sql"
+  become: yes
+  become_user: "{{ dcm4chee2_postgresql_admin }}"
+  register: psql_command
+  failed_when: psql_command.stderr
+  when: create_postgresql_database.changed
+
+- name: create postgresql role
+  postgresql_user:
+    name: "{{ dcm4chee2_postgresql_user }}"
+    password: "{{ dcm4chee2_postgresql_password }}"
+    db: "{{ dcm4chee2_postgresql_database }}"
+    priv: ALL
+    state: present
+  become: yes
+  become_user: "{{ dcm4chee2_postgresql_admin }}"

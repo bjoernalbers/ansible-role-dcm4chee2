@@ -1,0 +1,11 @@
+--- create.psql0	2017-05-17 19:24:13.613391032 +0200
++++ create.psql	2017-05-17 20:34:52.112968261 +0200
+@@ -859,7 +859,7 @@
+     status            INTEGER NOT NULL,
+ FOREIGN KEY (study_fk) REFERENCES study(pk)
+ );
+-CREATE INDEX published_study ON published_study(study_fk);
++CREATE INDEX published_study_fk ON published_study(study_fk);
+ CREATE INDEX published_study_status ON published_study(status);
+ CREATE INDEX repository_uid ON published_study(repository_uid);
+ 

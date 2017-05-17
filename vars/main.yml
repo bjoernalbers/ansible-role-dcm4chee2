@@ -27,3 +27,9 @@ dcm4chee2_scripts:
   - install_cdw.sh
   - install_jboss.sh
   - install_xds.sh
+
+# PostgreSQL
+dcm4chee2_postgresql_admin: "postgres"
+dcm4chee2_postgresql_database: "pacsdb"
+dcm4chee2_postgresql_user: "pacs"
+dcm4chee2_postgresql_password: "helloworld" # Please change!
