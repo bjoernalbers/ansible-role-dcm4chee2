@@ -62,3 +62,11 @@
     src: pacs-postgres-ds.xml.j2
     dest: "{{ dcm4chee2_home }}/server/default/deploy/pacs-postgres-ds.xml"
     mode: 0600
+
+- name: set java home environment variable
+  lineinfile:
+    name: /etc/environment
+    line: 'JAVA_HOME="/usr/lib/jvm/java-6-oracle"'
+    owner: root
+    group: root
+    mode: 0644
