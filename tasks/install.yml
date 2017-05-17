@@ -1,7 +1,6 @@
 ---
 - name: add java repository
   apt_repository:
-    #repo: 'ppa:nginx/stable'
     repo: "ppa:webupd8team/java"
 
 - name: update apt cache
@@ -24,3 +23,10 @@
     url: "{{ dcm4chee2_url }}"
     dest: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_archive }}"
     checksum: "{{ dcm4chee2_checksum }}"
+
+- name: unzip archive
+  unarchive:
+    src: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_archive }}"
+    remote_src: yes
+    dest: "{{ dcm4chee2_prefix }}"
+    creates: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_basename }}"

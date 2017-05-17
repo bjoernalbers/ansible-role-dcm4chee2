@@ -1,6 +1,7 @@
 ---
 dcm4chee2_packages:
   - oracle-java6-installer
+  - unzip
 dcm4chee2_version: "2.18.3"
 dcm4chee2_checksum: "sha1:07968b974ca92baf31ad197188ed1a01027bcb93"
 dcm4chee2_type: "psql"
