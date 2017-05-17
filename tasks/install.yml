@@ -70,3 +70,11 @@
     owner: root
     group: root
     mode: 0644
+
+- name: copy java app config
+  template:
+    src: run.conf.j2
+    dest: "{{ dcm4chee2_home }}/bin/run.conf"
+    owner: root
+    group: root
+    mode: 0644

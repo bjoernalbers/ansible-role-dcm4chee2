@@ -1,2 +1,7 @@
 ---
-# defaults file for bjoernalbers.dcm4chee2
+dcm4chee2_java_opts:
+  - "-Xms128m"
+  - "-Xmx512m"
+  - "-XX:MaxPermSize=128m"
+  - "-Dsun.rmi.dgc.client.gcInterval=3600000"
+  - "-Dsun.rmi.dgc.server.gcInterval=3600000"
