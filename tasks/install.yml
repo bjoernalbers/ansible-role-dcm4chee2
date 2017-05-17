@@ -50,3 +50,9 @@
     dest: "{{ dcm4chee2_home }}/bin"
     mode: 0755
   with_items: "{{ dcm4chee2_scripts }}"
+
+- name: install jboss
+  command: ./install_jboss.sh "{{ dcm4chee2_jboss_home }}"
+  args:
+    chdir: "{{ dcm4chee2_home }}/bin"
+    creates: "{{ dcm4chee2_home }}/bin/run.jar"
