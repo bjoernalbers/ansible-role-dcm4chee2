@@ -1,0 +1,20 @@
+---
+- name: add java repository
+  apt_repository:
+    #repo: 'ppa:nginx/stable'
+    repo: "ppa:webupd8team/java"
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+# https://coderwall.com/p/zzdapg/ansible-recipe-to-install-java-7-selecting-the-oracle-license
+- name: accept oracle license
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+
+- name: install packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ dcm4chee2_packages }}"

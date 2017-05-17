@@ -1,2 +1,3 @@
 ---
-# vars file for bjoernalbers.dcm4chee2
+dcm4chee2_packages:
+  - oracle-java6-installer
