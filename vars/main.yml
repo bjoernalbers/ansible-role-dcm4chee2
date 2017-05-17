@@ -33,3 +33,5 @@ dcm4chee2_postgresql_admin: "postgres"
 dcm4chee2_postgresql_database: "pacsdb"
 dcm4chee2_postgresql_user: "pacs"
 dcm4chee2_postgresql_password: "helloworld" # Please change!
+
+dcm4chee2_java_home: "/usr/lib/jvm/java-6-oracle"

@@ -66,7 +66,7 @@
 - name: set java home environment variable
   lineinfile:
     name: /etc/environment
-    line: 'JAVA_HOME="/usr/lib/jvm/java-6-oracle"'
+    line: 'JAVA_HOME="{{ dcm4chee2_java_home }}"'
     owner: root
     group: root
     mode: 0644
