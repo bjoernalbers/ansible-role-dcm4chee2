@@ -2,10 +2,22 @@
 dcm4chee2_packages:
   - oracle-java6-installer
   - unzip
+
+# Install dir
+dcm4chee2_prefix: "/opt"
+
+# DCM4CHEE
 dcm4chee2_version: "2.18.3"
 dcm4chee2_checksum: "sha1:07968b974ca92baf31ad197188ed1a01027bcb93"
-dcm4chee2_type: "psql"
-dcm4chee2_prefix: "/opt"
-dcm4chee2_basename: "dcm4chee-{{ dcm4chee2_version }}-{{ dcm4chee2_type }}"
+dcm4chee2_basename: "dcm4chee-{{ dcm4chee2_version }}-psql"
 dcm4chee2_archive: "{{ dcm4chee2_basename }}.zip"
 dcm4chee2_url: "https://downloads.sourceforge.net/project/dcm4che/dcm4chee/{{ dcm4chee2_version }}/{{ dcm4chee2_archive }}"
+dcm4chee2_home: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_basename }}"
+
+# JBoss
+dcm4chee2_jboss_version: "4.2.3.GA"
+dcm4chee2_jboss_checksum: "sha1:7e4587d1f630cbc053f841e6f2c9b89e9e84661d"
+dcm4chee2_jboss_basename: "jboss-{{ dcm4chee2_jboss_version }}"
+dcm4chee2_jboss_archive: "{{ dcm4chee2_jboss_basename }}-jdk6.zip"
+dcm4chee2_jboss_url: "https://downloads.sourceforge.net/project/jboss/JBoss/JBoss-{{ dcm4chee2_jboss_version }}/{{ dcm4chee2_jboss_archive }}"
+dcm4chee2_jboss_home: "{{ dcm4chee2_prefix }}/jboss-{{ dcm4chee2_jboss_version }}"
