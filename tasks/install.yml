@@ -43,3 +43,10 @@
     remote_src: yes
     dest: "{{ dcm4chee2_prefix }}"
     creates: "{{ dcm4chee2_jboss_home }}"
+
+- name: copy missing scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dcm4chee2_home }}/bin"
+    mode: 0755
+  with_items: "{{ dcm4chee2_scripts }}"

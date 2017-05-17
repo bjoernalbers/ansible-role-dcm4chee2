@@ -21,3 +21,9 @@ dcm4chee2_jboss_basename: "jboss-{{ dcm4chee2_jboss_version }}"
 dcm4chee2_jboss_archive: "{{ dcm4chee2_jboss_basename }}-jdk6.zip"
 dcm4chee2_jboss_url: "https://downloads.sourceforge.net/project/jboss/JBoss/JBoss-{{ dcm4chee2_jboss_version }}/{{ dcm4chee2_jboss_archive }}"
 dcm4chee2_jboss_home: "{{ dcm4chee2_prefix }}/jboss-{{ dcm4chee2_jboss_version }}"
+
+dcm4chee2_scripts:
+  - install_arr.sh
+  - install_cdw.sh
+  - install_jboss.sh
+  - install_xds.sh
