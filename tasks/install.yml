@@ -56,3 +56,9 @@
   args:
     chdir: "{{ dcm4chee2_home }}/bin"
     creates: "{{ dcm4chee2_home }}/bin/run.jar"
+
+- name: copy dcm4chee database config
+  template:
+    src: pacs-postgres-ds.xml.j2
+    dest: "{{ dcm4chee2_home }}/server/default/deploy/pacs-postgres-ds.xml"
+    mode: 0600
