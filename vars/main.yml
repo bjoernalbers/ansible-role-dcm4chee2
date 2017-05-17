@@ -1,3 +1,10 @@
 ---
 dcm4chee2_packages:
   - oracle-java6-installer
+dcm4chee2_version: "2.18.3"
+dcm4chee2_checksum: "sha1:07968b974ca92baf31ad197188ed1a01027bcb93"
+dcm4chee2_type: "psql"
+dcm4chee2_prefix: "/opt"
+dcm4chee2_basename: "dcm4chee-{{ dcm4chee2_version }}-{{ dcm4chee2_type }}"
+dcm4chee2_archive: "{{ dcm4chee2_basename }}.zip"
+dcm4chee2_url: "https://downloads.sourceforge.net/project/dcm4che/dcm4chee/{{ dcm4chee2_version }}/{{ dcm4chee2_archive }}"

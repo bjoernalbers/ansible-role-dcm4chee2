@@ -18,3 +18,9 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ dcm4chee2_packages }}"
+
+- name: download archive
+  get_url:
+    url: "{{ dcm4chee2_url }}"
+    dest: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_archive }}"
+    checksum: "{{ dcm4chee2_checksum }}"
