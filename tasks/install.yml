@@ -110,6 +110,7 @@
     owner: "{{ dcm4chee2_system_user }}"
     group: "{{ dcm4chee2_system_user }}"
     mode: 0644
+  notify: restart dcm4chee
 
 - name: create symlink to storage
   file:
