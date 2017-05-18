@@ -1,2 +1,6 @@
 ---
-# handlers file for bjoernalbers.dcm4chee2
+- name: restart dcm4chee
+  service:
+    name: dcm4chee
+    state: restarted
+    enabled: yes

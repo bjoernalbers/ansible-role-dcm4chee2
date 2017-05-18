@@ -9,6 +9,7 @@
 - name: reload systemd daemon
   command: systemctl daemon-reload
   when: copy_systemd_unit_file.changed
+  notify: restart dcm4chee
 
 - name: start dcm4chee
   service:
