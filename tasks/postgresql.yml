@@ -13,16 +13,6 @@
   become_user: "{{ dcm4chee2_postgresql_admin }}"
   register: create_postgresql_database
 
-- name: initialize postgresql database
-  shell: psql "{{ dcm4chee2_postgresql_database }}" < create.psql
-  args:
-    chdir: "{{ dcm4chee2_home }}/sql"
-  become: yes
-  become_user: "{{ dcm4chee2_postgresql_admin }}"
-  register: psql_command
-  failed_when: psql_command.stderr
-  when: create_postgresql_database.changed
-
 - name: create postgresql role
   postgresql_user:
     name: "{{ dcm4chee2_postgresql_user }}"
@@ -32,3 +22,15 @@
     state: present
   become: yes
   become_user: "{{ dcm4chee2_postgresql_admin }}"
+
+- name: initialize postgresql database
+  shell: >
+    psql -U "{{ dcm4chee2_postgresql_user }}"
+    "{{ dcm4chee2_postgresql_database }}" < create.psql
+  args:
+    chdir: "{{ dcm4chee2_home }}/sql"
+  environment:
+    PGPASSWORD: '{{ dcm4chee2_postgresql_password }}'
+  register: psql_command
+  failed_when: psql_command.stderr
+  when: create_postgresql_database.changed
