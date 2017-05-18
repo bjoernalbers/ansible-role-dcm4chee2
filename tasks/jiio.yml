@@ -1,0 +1,22 @@
+---
+- name: remove jiio dlls
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ dcm4chee2_jiio_dlls }}"
+
+- name: download jiio library
+  get_url:
+    url: "{{ dcm4chee2_jiio_url }}"
+    dest: "{{ dcm4chee2_jiio_download_dest }}"
+    checksum: "{{ dcm4chee2_jiio_checksum }}"
+
+- name: copy jiio library
+  copy:
+    dest: "{{ dcm4chee2_jiio_dest }}"
+    src: "{{ dcm4chee2_jiio_download_dest }}"
+    remote_src: yes
+    owner: "{{ dcm4chee2_system_user }}"
+    group: "{{ dcm4chee2_system_user }}"
+    mode: 0644
+  notify: restart dcm4chee

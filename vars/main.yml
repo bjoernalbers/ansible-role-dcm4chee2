@@ -30,6 +30,16 @@ dcm4chee2_scripts:
   - install_jboss.sh
   - install_xds.sh
 
+# Java Advanced Imaging Image I/O Tools (jiio)
+dcm4chee2_jiio_url: "https://github.com/nroduit/mvn-repo/raw/master/org/weasis/thirdparty/com/sun/media/libclib_jiio/1.2-b04/libclib_jiio-1.2-b04-linux-x86-64.so"
+dcm4chee2_jiio_checksum: "sha1:0be8ade84f945f8d1e2722ed653eeaa3817950d2"
+dcm4chee2_jiio_download_dest: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_jiio_url | basename }}"
+dcm4chee2_jiio_dest: "{{ dcm4chee2_home }}/bin/native/libclib_jiio.so"
+dcm4chee2_jiio_dlls:
+  - "{{ dcm4chee2_home }}/bin/native/clib_jiio.dll"
+  - "{{ dcm4chee2_home }}/bin/native/clib_jiio_sse2.dll"
+  - "{{ dcm4chee2_home }}/bin/native/clib_jiio_util.dll"
+
 # PostgreSQL
 dcm4chee2_postgresql_admin: "postgres"
 dcm4chee2_postgresql_database: "pacsdb"
