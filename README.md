@@ -12,7 +12,20 @@ None.
 
 ## Role Variables
 
-RTFS (Read The Fine Source code)!
+### Storage directory
+
+dcm4chee stores by default all DICOM files into
+`{{ dcm4chee2_home }}/server/default/archive`.
+If you define `dcm4chee2_storage` then the default location will be symlinked
+to this directory (needs to be present and writable by system-user "dcm4chee"):
+Example:
+
+```yaml
+dcm4chee2_storage: "/mnt/storage/dicom"
+```
+
+By that you can keep your data on a bigger storage.
+
 
 ## Dependencies
 

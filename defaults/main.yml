@@ -5,3 +5,8 @@ dcm4chee2_java_opts:
   - "-XX:MaxPermSize=128m"
   - "-Dsun.rmi.dgc.client.gcInterval=3600000"
   - "-Dsun.rmi.dgc.server.gcInterval=3600000"
+
+# If defined, then dicom files are stored into this directory:
+# NOTE: The directory has to exist and must be owned and writable by
+# "{{ # dcm4chee_system_user }}"!
+#dcm4chee2_storage:

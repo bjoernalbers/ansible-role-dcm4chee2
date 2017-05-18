@@ -110,3 +110,10 @@
     owner: "{{ dcm4chee2_system_user }}"
     group: "{{ dcm4chee2_system_user }}"
     mode: 0644
+
+- name: create symlink to storage
+  file:
+    path: "{{ dcm4chee2_home }}/server/default/archive"
+    src: "{{ dcm4chee2_storage }}"
+    state: link
+  when: dcm4chee2_storage is defined
