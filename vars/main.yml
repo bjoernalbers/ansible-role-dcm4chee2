@@ -6,6 +6,8 @@ dcm4chee2_packages:
 # Install dir
 dcm4chee2_prefix: "/opt"
 
+dcm4chee2_system_user: "dcm4chee"
+
 # DCM4CHEE
 dcm4chee2_version: "2.18.3"
 dcm4chee2_checksum: "sha1:07968b974ca92baf31ad197188ed1a01027bcb93"

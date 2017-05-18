@@ -18,6 +18,23 @@
     state: present
   with_items: "{{ dcm4chee2_packages }}"
 
+- name: create system group
+  group:
+    name: "{{ dcm4chee2_system_user }}"
+    system: yes
+    state: present
+
+- name: create system user
+  user:
+    name: "{{ dcm4chee2_system_user }}"
+    group: "{{ dcm4chee2_system_user }}"
+    comment: "DCM4CHEE System User"
+    home: "{{ dcm4chee2_home }}"
+    createhome: no
+    shell: "/usr/sbin/nologin"
+    system: yes
+    state: present
+
 - name: download dcm4chee
   get_url:
     url: "{{ dcm4chee2_url }}"
@@ -30,6 +47,15 @@
     remote_src: yes
     dest: "{{ dcm4chee2_prefix }}"
     creates: "{{ dcm4chee2_home }}"
+  register: unzip_dcm4chee
+
+- name: change ownership of dcm4chee home
+  file:
+    path: "{{ dcm4chee2_home }}"
+    owner: "{{ dcm4chee2_system_user }}"
+    group: "{{ dcm4chee2_system_user }}"
+    recurse: yes
+  when: unzip_dcm4chee.changed
 
 - name: download jboss
   get_url:
@@ -50,18 +76,24 @@
     dest: "{{ dcm4chee2_home }}/bin"
     mode: 0755
   with_items: "{{ dcm4chee2_scripts }}"
+  become: yes
+  become_user: "{{ dcm4chee2_system_user }}"
 
 - name: install jboss
   command: ./install_jboss.sh "{{ dcm4chee2_jboss_home }}"
   args:
     chdir: "{{ dcm4chee2_home }}/bin"
     creates: "{{ dcm4chee2_home }}/bin/run.jar"
+  become: yes
+  become_user: "{{ dcm4chee2_system_user }}"
 
 - name: copy dcm4chee database config
   template:
     src: pacs-postgres-ds.xml.j2
     dest: "{{ dcm4chee2_home }}/server/default/deploy/pacs-postgres-ds.xml"
     mode: 0600
+  become: yes
+  become_user: "{{ dcm4chee2_system_user }}"
 
 - name: set java home environment variable
   lineinfile:
@@ -71,10 +103,10 @@
     group: root
     mode: 0644
 
-- name: copy java app config
+- name: copy run configuration
   template:
     src: run.conf.j2
     dest: "{{ dcm4chee2_home }}/bin/run.conf"
-    owner: root
-    group: root
+    owner: "{{ dcm4chee2_system_user }}"
+    group: "{{ dcm4chee2_system_user }}"
     mode: 0644

@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-User=root
+User={{ dcm4chee2_system_user }}
 ExecStart="{{ dcm4chee2_home }}/bin/run.sh" -c default
 ExecStop="{{ dcm4chee2_home }}/bin/shutdown.sh" -S -u admin -p admin
 Restart=always
