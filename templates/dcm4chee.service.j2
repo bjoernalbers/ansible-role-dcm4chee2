@@ -1,0 +1,16 @@
+[Unit]
+Description=DCM4CHEE PACS
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart="{{ dcm4chee2_home }}/bin/run.sh" -c default
+ExecStop="{{ dcm4chee2_home }}/bin/shutdown.sh" -S -u admin -p admin
+Restart=always
+RestartSec=30
+StandardOutput=null
+
+[Install]
+Alias=pacs
+WantedBy=multi-user.target

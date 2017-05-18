@@ -1,0 +1,17 @@
+---
+- name: copy systemd unit file
+  template:
+    src: dcm4chee.service.j2
+    dest: "/etc/systemd/system/dcm4chee.service"
+    mode: 0660
+  register: copy_systemd_unit_file
+
+- name: reload systemd daemon
+  command: systemctl daemon-reload
+  when: copy_systemd_unit_file.changed
+
+- name: start dcm4chee
+  service:
+    name: dcm4chee
+    state: started
+    enabled: yes
