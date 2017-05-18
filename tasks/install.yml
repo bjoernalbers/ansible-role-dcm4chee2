@@ -57,6 +57,15 @@
     recurse: yes
   when: unzip_dcm4chee.changed
 
+- name: copy missing scripts
+  copy:
+    src: "{{ item }}"
+    dest: "{{ dcm4chee2_home }}/bin"
+    owner: "{{ dcm4chee2_system_user }}"
+    group: "{{ dcm4chee2_system_user }}"
+    mode: 0755
+  with_items: "{{ dcm4chee2_scripts }}"
+
 - name: download jboss
   get_url:
     url: "{{ dcm4chee2_jboss_url }}"
@@ -70,15 +79,6 @@
     dest: "{{ dcm4chee2_prefix }}"
     creates: "{{ dcm4chee2_jboss_home }}"
 
-- name: copy missing scripts
-  copy:
-    src: "{{ item }}"
-    dest: "{{ dcm4chee2_home }}/bin"
-    mode: 0755
-  with_items: "{{ dcm4chee2_scripts }}"
-  become: yes
-  become_user: "{{ dcm4chee2_system_user }}"
-
 - name: install jboss
   command: ./install_jboss.sh "{{ dcm4chee2_jboss_home }}"
   args:
@@ -87,13 +87,41 @@
   become: yes
   become_user: "{{ dcm4chee2_system_user }}"
 
+- name: download arr
+  get_url:
+    url: "{{ dcm4chee2_arr_url }}"
+    dest: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_arr_archive }}"
+    checksum: "{{ dcm4chee2_arr_checksum }}"
+
+- name: unzip arr
+  unarchive:
+    src: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_arr_archive }}"
+    remote_src: yes
+    dest: "{{ dcm4chee2_prefix }}"
+    creates: "{{ dcm4chee2_arr_home }}"
+  register: unzip_arr
+
+- name: install arr
+  command: "{{ dcm4chee2_home }}/bin/install_arr.sh {{ dcm4chee2_arr_home }}"
+  become: yes
+  become_user: "{{ dcm4chee2_system_user }}"
+  when: unzip_dcm4chee.changed or unzip_arr.changed
+
 - name: copy dcm4chee database config
   template:
     src: pacs-postgres-ds.xml.j2
     dest: "{{ dcm4chee2_home }}/server/default/deploy/pacs-postgres-ds.xml"
-    mode: 0600
+    mode: 0640
   become: yes
   become_user: "{{ dcm4chee2_system_user }}"
+
+- name: copy arr database config
+  template:
+    src: arr-psql-ds.xml.j2
+    dest: "{{ dcm4chee2_home }}/server/default/deploy/arr-psql-ds.xml"
+    owner: "{{ dcm4chee2_system_user }}"
+    group: "{{ dcm4chee2_system_user }}"
+    mode: 0640
 
 - name: set java home environment variable
   lineinfile:

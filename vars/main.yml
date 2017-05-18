@@ -15,6 +15,11 @@ dcm4chee2_basename: "dcm4chee-{{ dcm4chee2_version }}-psql"
 dcm4chee2_archive: "{{ dcm4chee2_basename }}.zip"
 dcm4chee2_url: "https://downloads.sourceforge.net/project/dcm4che/dcm4chee/{{ dcm4chee2_version }}/{{ dcm4chee2_archive }}"
 dcm4chee2_home: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_basename }}"
+dcm4chee2_scripts:
+  - install_arr.sh
+  - install_cdw.sh
+  - install_jboss.sh
+  - install_xds.sh
 
 # JBoss
 dcm4chee2_jboss_version: "4.2.3.GA"
@@ -24,11 +29,13 @@ dcm4chee2_jboss_archive: "{{ dcm4chee2_jboss_basename }}-jdk6.zip"
 dcm4chee2_jboss_url: "https://downloads.sourceforge.net/project/jboss/JBoss/JBoss-{{ dcm4chee2_jboss_version }}/{{ dcm4chee2_jboss_archive }}"
 dcm4chee2_jboss_home: "{{ dcm4chee2_prefix }}/jboss-{{ dcm4chee2_jboss_version }}"
 
-dcm4chee2_scripts:
-  - install_arr.sh
-  - install_cdw.sh
-  - install_jboss.sh
-  - install_xds.sh
+# Audit Record Repository (arr)
+dcm4chee2_arr_version: "3.0.11"
+dcm4chee2_arr_checksum: "sha1:625151f636321a8cd4d27bbd14ab439e3e6da98e"
+dcm4chee2_arr_basename: "dcm4chee-arr-{{ dcm4chee2_arr_version }}-psql"
+dcm4chee2_arr_archive: "{{ dcm4chee2_arr_basename }}.zip"
+dcm4chee2_arr_url: "https://downloads.sourceforge.net/project/dcm4che/dcm4chee-arr/{{ dcm4chee2_arr_version }}/{{ dcm4chee2_arr_archive }}"
+dcm4chee2_arr_home: "{{ dcm4chee2_prefix }}/{{ dcm4chee2_arr_basename }}"
 
 # Java Advanced Imaging Image I/O Tools (jiio)
 dcm4chee2_jiio_url: "https://github.com/nroduit/mvn-repo/raw/master/org/weasis/thirdparty/com/sun/media/libclib_jiio/1.2-b04/libclib_jiio-1.2-b04-linux-x86-64.so"
@@ -43,6 +50,7 @@ dcm4chee2_jiio_dlls:
 # PostgreSQL
 dcm4chee2_postgresql_admin: "postgres"
 dcm4chee2_postgresql_database: "pacsdb"
+dcm4chee2_postgresql_arr_database: "arrdb"
 dcm4chee2_postgresql_user: "pacs"
 dcm4chee2_postgresql_password: "helloworld" # Please change!
 

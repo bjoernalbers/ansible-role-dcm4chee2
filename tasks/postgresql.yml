@@ -13,6 +13,14 @@
   become_user: "{{ dcm4chee2_postgresql_admin }}"
   register: create_postgresql_database
 
+- name: create postgresql arr database
+  postgresql_db:
+    name: "{{ dcm4chee2_postgresql_arr_database }}"
+    state: present
+  become: yes
+  become_user: "{{ dcm4chee2_postgresql_admin }}"
+  register: create_postgresql_arr_database
+
 - name: create postgresql role
   postgresql_user:
     name: "{{ dcm4chee2_postgresql_user }}"
@@ -34,3 +42,14 @@
   register: psql_command
   failed_when: psql_command.stderr
   when: create_postgresql_database.changed
+
+- name: initialize postgresql arr database
+  shell: >
+    psql -U "{{ dcm4chee2_postgresql_user }}"
+    "{{ dcm4chee2_postgresql_arr_database }}" <
+    "{{ dcm4chee2_arr_home }}/sql/dcm4chee-arr-psql.ddl"
+  environment:
+    PGPASSWORD: '{{ dcm4chee2_postgresql_password }}'
+  register: psql_command
+  failed_when: psql_command.stderr
+  when: create_postgresql_arr_database.changed
